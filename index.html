@@ -62,7 +62,7 @@
             border-bottom: 4px solid #e67e22;
         }
 
-        /* ===== ШАПКА ===== */
+        /* ===== ШАПКА (без ONLINE) ===== */
         .header {
             display: flex;
             align-items: center;
@@ -70,7 +70,6 @@
             margin-bottom: clamp(1rem, 3vw, 2rem);
             border-bottom: 2px dashed #b96f2e;
             padding-bottom: clamp(0.6rem, 2vw, 1.2rem);
-            flex-wrap: wrap;
         }
 
         .header > i.fa-fire {
@@ -91,20 +90,6 @@
             text-shadow: 0 0 12px #e67e2250;
             word-break: break-word;
             line-height: 1.15;
-        }
-
-        .header span.status {
-            margin-left: auto;
-            background: #2d1f12;
-            padding: clamp(0.2rem, 1vw, 0.4rem) clamp(0.6rem, 2vw, 1.2rem);
-            border-radius: 60px;
-            font-weight: 600;
-            font-size: clamp(0.6rem, 1.6vw, 0.9rem);
-            color: #f0b45c;
-            border: 1px solid #b96f2e;
-            letter-spacing: 0.5px;
-            white-space: nowrap;
-            flex-shrink: 0;
         }
 
         /* ===== БЛОК ЗАГРУЗКИ ===== */
@@ -350,6 +335,7 @@
             font-weight: 500;
         }
 
+        /* ===== БЛОК С ССЫЛКАМИ ===== */
         .req-footnote {
             margin-top: clamp(1rem, 2.5vw, 1.6rem);
             border-top: 1px solid #322319;
@@ -366,8 +352,9 @@
         .req-footnote a {
             color: #f5b85c;
             text-decoration: none;
+            font-weight: 700;
             transition: color 0.2s, text-decoration 0.2s;
-            word-break: break-all;
+            border-bottom: 1px dashed transparent;
         }
 
         .req-footnote a:hover {
@@ -412,7 +399,7 @@
         }
 
         /* ============================================================
-           МОДАЛЬНОЕ ОКНО (кастомное, в стиле сайта)
+           МОДАЛЬНОЕ ОКНО
            ============================================================ */
         .modal-overlay {
             position: fixed;
@@ -425,7 +412,6 @@
             align-items: center;
             padding: 1rem;
             z-index: 1000;
-            /* Скрыто по умолчанию */
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.25s ease, visibility 0.25s ease;
@@ -451,8 +437,6 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-
-            /* Начальное состояние для анимации "как окно Windows" */
             transform: scale(0.85) translateY(20px);
             opacity: 0;
             transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
@@ -463,7 +447,6 @@
             opacity: 1;
         }
 
-        /* Заголовок окна — как в Windows */
         .modal-titlebar {
             background: linear-gradient(145deg, #2a1f15 0%, #1a130d 100%);
             padding: clamp(0.6rem, 2vw, 0.9rem) clamp(0.9rem, 2.5vw, 1.2rem);
@@ -510,7 +493,6 @@
             color: #fff;
         }
 
-        /* Тело окна — сюда вставляете свой текст */
         .modal-body {
             padding: clamp(1rem, 3vw, 1.6rem) clamp(1rem, 3vw, 1.6rem);
             color: #d9be97;
@@ -538,7 +520,6 @@
             text-decoration: underline;
         }
 
-        /* Кнопки */
         .modal-actions {
             padding: clamp(0.8rem, 2vw, 1.2rem) clamp(1rem, 3vw, 1.6rem);
             display: flex;
@@ -596,7 +577,6 @@
             transform: translateY(1px);
         }
 
-        /* Блокировка скролла body когда окно открыто */
         body.modal-open {
             overflow: hidden;
         }
@@ -608,27 +588,32 @@
             .launcher { max-width: 95vw; }
         }
 
+        @media (max-width: 900px) and (min-width: 601px) {
+            .download-area {
+                flex-wrap: nowrap;
+                align-items: center;
+                gap: 1rem;
+            }
+            .download-text { flex: 1 1 auto; }
+            .btn-download {
+                flex-shrink: 0;
+                padding: 0.7rem 1.4rem;
+                font-size: 1rem;
+            }
+        }
+
         @media (max-width: 768px) {
-    .download-area {
-        flex-direction: column;
-        align-items: stretch;
-        justify-content: flex-start;   /* убираем пустоту между текстом и кнопкой */
-        gap: 0.8rem;
-    }
-    .download-text {
-        flex: 1 1 auto;
-    }
-    .btn-download {
-        width: 100%;
-    }
-}
+            .download-area {
+                flex-direction: column;
+                align-items: stretch;
+                justify-content: flex-start;
+                gap: 0.8rem;
+            }
+            .download-text { flex: 1 1 auto; }
+            .btn-download { width: 100%; }
+        }
 
         @media (max-width: 600px) {
-            .header { justify-content: flex-start; }
-            .header span.status {
-                margin-left: 0;
-                margin-top: 0.4rem;
-            }
             .video-header span {
                 margin-left: 0;
                 margin-top: 0.3rem;
@@ -638,12 +623,8 @@
                 flex: 1 1 auto;
                 max-width: 48%;
             }
-            .modal-actions {
-                justify-content: stretch;
-            }
-            .modal-btn {
-                flex: 1;
-            }
+            .modal-actions { justify-content: stretch; }
+            .modal-btn { flex: 1; }
         }
 
         @media (max-width: 480px) {
@@ -658,36 +639,38 @@
             }
         }
 
-        @media (max-width: 340px) {
+        @media (max-width: 360px) {
             .header h1 { font-size: 1rem; letter-spacing: 0; }
             .header > i.fa-fire { font-size: 1.4rem; }
-            .btn-download {
-                font-size: 0.85rem;
-                padding: 0.6rem 1rem;
+
+            .download-area {
+                padding: 0.7rem 0.9rem;
+                gap: 0.6rem;
+                margin-bottom: 1rem;
             }
+            .download-text {
+                gap: 0.5rem;
+                flex: 1 1 auto;
+            }
+            .download-text > i.fa-cloud-download-alt { font-size: 1.3rem; }
+            .download-text p { font-size: 0.85rem; letter-spacing: 0; }
+            .download-text small { font-size: 0.65rem; margin-top: 2px; }
+            .download-text small i.fa-check-circle { font-size: 0.55rem; }
+
+            .btn-download {
+                font-size: 0.9rem;
+                padding: 0.55rem 1rem;
+                gap: 6px;
+                box-shadow: 0 4px 0 #874e14, 0 6px 14px #d97c1a60;
+            }
+            .btn-download i { font-size: 1rem; }
+
             .req-item strong,
             .req-item span { font-size: 0.75rem; }
             .modal-actions { flex-direction: column; }
             .modal-btn { width: 100%; }
         }
 
-/* Средние планшеты — текст и кнопка в одну строку, без растяжения */
-@media (min-width: 601px) and (max-width: 900px) {
-    .download-area {
-        flex-wrap: nowrap;
-        align-items: center;
-        gap: 1rem;
-    }
-    .download-text {
-        flex: 1 1 auto;
-    }
-    .btn-download {
-        flex-shrink: 0;
-        padding: 0.7rem 1.4rem;
-        font-size: 1rem;
-    }
-}
-        
         @media (max-height: 500px) and (orientation: landscape) {
             body {
                 align-items: flex-start;
@@ -708,11 +691,10 @@
 </head>
 <body>
     <div class="launcher">
-        <!-- Шапка -->
+        <!-- Шапка — БЕЗ статуса ONLINE -->
         <div class="header">
             <i class="fas fa-fire"></i>
             <h1>Ovven SA-MP Launcher</h1>
-            <span class="status"><i class="fas fa-circle" style="color: #f5b342; font-size: 0.6rem; margin-right: 6px;"></i> ONLINE</span>
         </div>
 
         <!-- Блок загрузки -->
@@ -726,7 +708,6 @@
                     </small>
                 </div>
             </div>
-            <!-- Кнопка теперь открывает модальное окно, а не скачивает напрямую -->
             <button type="button" class="btn-download" id="downloadBtn">
                <i class="fas fa-download"></i> Скачать
             </button>
@@ -798,16 +779,17 @@
                     </div>
                 </div>
             </div>
+            <!-- Ссылки без показа URL -->
             <div class="req-footnote">
                 <span>
                     <i class="fas fa-check-circle" style="color: #e68a2e;"></i> 
                     По вопросам писать: 
-                    <a href="https://vk.ru/ovvenmonopolyy" target="_blank">https://vk.ru/ovvenmonopolyy</a>
+                    <a href="https://vk.ru/ovvenmonopolyy" target="_blank" rel="noopener">Написать</a>
                 </span>
                 <span>
                     <i class="fas fa-star" style="color: #f5b342;"></i> 
                     Наша группа с новостями: 
-                    <a href="https://vk.ru/club240887289" target="_blank">https://vk.ru/club240887289</a>
+                    <a href="https://vk.ru/club240887289" target="_blank" rel="noopener">Группа ВК</a>
                 </span>
             </div>
         </div>
@@ -829,9 +811,7 @@
         </div>
     </div>
 
-    <!-- ============================================================
-         МОДАЛЬНОЕ ОКНО "ОБРАТИТЕ ВНИМАНИЕ"
-         ============================================================ -->
+    <!-- МОДАЛЬНОЕ ОКНО -->
     <div class="modal-overlay" id="downloadModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
         <div class="modal-window">
             <div class="modal-titlebar">
@@ -843,110 +823,5 @@
             </div>
             <div class="modal-body">
                 <!-- ▼▼▼ ЗДЕСЬ МЕНЯЙТЕ ТЕКСТ ▼▼▼ -->
-                <p>Перед скачиванием убедитесь, что у вас установлена версия Windows не ниже 7 (SP1)</p>
-                <p><strong>• Также убедитесь, что у вас стоит чистый образ Windows (не Lite, Tiny и прочее)></p>
-                <p>Также рекомендуется отключить антивирус во время первого запуска (или добавить в исключения), т.к. лаунчер может быть помечен как "вредоносный"</p>
-                <p>По вопросам пишите в личные сообщения ВКонтакте: @ovvenmonopolyy</p>
-                <!-- ▲▲▲ КОНЕЦ РЕДАКТИРУЕМОГО ТЕКСТА ▲▲▲ -->
-            </div>
-            <div class="modal-actions">
-                <button type="button" class="modal-btn modal-btn-secondary" id="modalCancel">
-                    Отмена
-                </button>
-                <button type="button" class="modal-btn modal-btn-primary" id="modalConfirm">
-                    <i class="fas fa-download" style="margin-right: 6px;"></i> Продолжить
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        (function() {
-            // ===== ДЕКОРАТИВНЫЕ ЭФФЕКТЫ (подсветка блоков) =====
-            const blocks = document.querySelectorAll('.video-guide, .requirements');
-            blocks.forEach(block => {
-                block.addEventListener('mouseenter', () => {
-                    block.style.borderColor = '#b96f2e';
-                    block.style.boxShadow = 'inset 0 2px 8px rgba(0,0,0,0.7), 0 8px 24px #e67e2230';
-                });
-                block.addEventListener('mouseleave', () => {
-                    block.style.borderColor = '#4f351f';
-                    block.style.boxShadow = 'inset 0 2px 8px rgba(0,0,0,0.7), 0 8px 20px rgba(0,0,0,0.6)';
-                });
-            });
-
-            const footer = document.querySelector('.footer-extra');
-            if (footer) {
-                footer.addEventListener('click', function(e) {
-                    if (e.target.closest('.badge')) {
-                        alert('🔒 Соединение защищено (TLS 1.3)');
-                    }
-                });
-            }
-
-            // ===== МОДАЛЬНОЕ ОКНО =====
-            const modal = document.getElementById('downloadModal');
-            const downloadBtn = document.getElementById('downloadBtn');
-            const modalClose = document.getElementById('modalClose');
-            const modalCancel = document.getElementById('modalCancel');
-            const modalConfirm = document.getElementById('modalConfirm');
-
-            // Ссылка для скачивания (меняйте при необходимости)
-            const DOWNLOAD_URL = 'https://drive.google.com/uc?export=download&id=1Zv-Ah2un3j7JN0_g71lUsYgUpBkUdQqz';
-
-            // Открытие окна
-            function openModal() {
-                modal.classList.add('active');
-                document.body.classList.add('modal-open');
-                // Фокус на кнопке "Продолжить" для удобства
-                setTimeout(() => modalConfirm.focus(), 100);
-            }
-
-            // Закрытие окна
-            function closeModal() {
-                modal.classList.remove('active');
-                document.body.classList.remove('modal-open');
-            }
-
-            // Запуск скачивания
-            function startDownload() {
-                // Создаём скрытую ссылку и кликаем по ней
-                const a = document.createElement('a');
-                a.href = DOWNLOAD_URL;
-                a.style.display = 'none';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            }
-
-            // Клик по кнопке "Скачать" — открываем модалку
-            downloadBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                openModal();
-            });
-
-            // Клик по "Продолжить" — закрываем и качаем
-            modalConfirm.addEventListener('click', function() {
-                closeModal();
-                startDownload();
-            });
-
-            // Клик по "Отмена" / крестику — просто закрываем
-            modalCancel.addEventListener('click', closeModal);
-            modalClose.addEventListener('click', closeModal);
-
-            // Клик по оверлею (вне окна) — закрываем
-            modal.addEventListener('click', function(e) {
-                if (e.target === modal) closeModal();
-            });
-
-            // Esc — закрываем
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && modal.classList.contains('active')) {
-                    closeModal();
-                }
-            });
-        })();
-    </script>
-</body>
-</html>
+                <p>Перед скачиванием убедитесь, что у вас установлены все необходимые компоненты:</p>
+                <p><strong>• .NET Framework 4.8</strong><br>• <strong>Visual C++ Redistributable 2005–2022</
