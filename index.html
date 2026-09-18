@@ -783,7 +783,7 @@
             <div class="req-footnote">
                 <span>
                     <i class="fas fa-check-circle" style="color: #e68a2e;"></i> 
-                    По вопросам писать: 
+                    По вопросам: 
                     <a href="https://vk.ru/ovvenmonopolyy" target="_blank" rel="noopener">Написать</a>
                 </span>
                 <span>
@@ -823,5 +823,100 @@
             </div>
             <div class="modal-body">
                 <!-- ▼▼▼ ЗДЕСЬ МЕНЯЙТЕ ТЕКСТ ▼▼▼ -->
-                <p>Перед скачиванием убедитесь, что у вас установлены все необходимые компоненты:</p>
-                <p><strong>• .NET Framework 4.8</strong><br>• <strong>Visual C++ Redistributable 2005–2022</
+                <p>Перед скачиванием убедитесь, что у вас установлена рекомендуемая версия Windows (не ниже 7 SP1)</p>
+                <p><strong>Также убедитесь, что у вас стоит чистая версия Windows (не Tiny, Lite и подобные)</p>
+                <p><strong>Во время загрузки и использования рекомендуется отключить антивирусные программы, так как из-за специфики лаунчера, антивирус посчитает это ПО вредоносным</strong></p>
+<p><strong>По вопросам пишите в личные сообщения ВКонтакте: @ovvemonopolyy<strong></p>
+    <!-- ▲▲▲ КОНЕЦ РЕДАКТИРУЕМОГО ТЕКСТА ▲▲▲ -->
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="modal-btn modal-btn-secondary" id="modalCancel">
+                    Отмена
+                </button>
+                <button type="button" class="modal-btn modal-btn-primary" id="modalConfirm">
+                    <i class="fas fa-download" style="margin-right: 6px;"></i> Продолжить
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // ===== ДЕКОРАТИВНЫЕ ЭФФЕКТЫ =====
+            const blocks = document.querySelectorAll('.video-guide, .requirements');
+            blocks.forEach(block => {
+                block.addEventListener('mouseenter', () => {
+                    block.style.borderColor = '#b96f2e';
+                    block.style.boxShadow = 'inset 0 2px 8px rgba(0,0,0,0.7), 0 8px 24px #e67e2230';
+                });
+                block.addEventListener('mouseleave', () => {
+                    block.style.borderColor = '#4f351f';
+                    block.style.boxShadow = 'inset 0 2px 8px rgba(0,0,0,0.7), 0 8px 20px rgba(0,0,0,0.6)';
+                });
+            });
+
+            const footer = document.querySelector('.footer-extra');
+            if (footer) {
+                footer.addEventListener('click', function(e) {
+                    if (e.target.closest('.badge')) {
+                        alert('🔒 Соединение защищено (TLS 1.3)');
+                    }
+                });
+            }
+
+            // ===== МОДАЛЬНОЕ ОКНО =====
+            const modal = document.getElementById('downloadModal');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const modalClose = document.getElementById('modalClose');
+            const modalCancel = document.getElementById('modalCancel');
+            const modalConfirm = document.getElementById('modalConfirm');
+
+            const DOWNLOAD_URL = 'https://drive.google.com/uc?export=download&id=1Zv-Ah2un3j7JN0_g71lUsYgUpBkUdQqz';
+
+            function openModal() {
+                modal.classList.add('active');
+                document.body.classList.add('modal-open');
+                setTimeout(() => modalConfirm.focus(), 100);
+            }
+
+            function closeModal() {
+                modal.classList.remove('active');
+                document.body.classList.remove('modal-open');
+            }
+
+            function startDownload() {
+                const a = document.createElement('a');
+                a.href = DOWNLOAD_URL;
+                a.style.display = 'none';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+
+            downloadBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                openModal();
+            });
+
+            modalConfirm.addEventListener('click', function() {
+                closeModal();
+                startDownload();
+            });
+
+            modalCancel.addEventListener('click', closeModal);
+            modalClose.addEventListener('click', closeModal);
+
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) closeModal();
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    closeModal();
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
+```>
