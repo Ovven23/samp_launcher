@@ -126,7 +126,7 @@
             display: flex;
             align-items: center;
             gap: clamp(0.5rem, 1.5vw, 0.8rem);
-            flex: 1 1 200px;
+            flex: 1 1 auto;
             min-width: 0;
         }
 
@@ -609,12 +609,19 @@
         }
 
         @media (max-width: 768px) {
-            .download-area {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .btn-download { width: 100%; }
-        }
+    .download-area {
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;   /* убираем пустоту между текстом и кнопкой */
+        gap: 0.8rem;
+    }
+    .download-text {
+        flex: 1 1 auto;
+    }
+    .btn-download {
+        width: 100%;
+    }
+}
 
         @media (max-width: 600px) {
             .header { justify-content: flex-start; }
